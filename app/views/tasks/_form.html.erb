@@ -1,0 +1,25 @@
+<%= form_with(model: @task, local: true) do |form| %>
+<% if @task.errors.present? %>
+  <% @task.errors.full_messages.each do |message| %>
+    <ul>
+      <div class='alert alert-notice' role='alert'>
+        <li><%= message %></li>
+      </div>
+    </ul>
+  <% end %>
+<% end %>
+
+<%= link_to 'Main', tasks_path %>
+
+  <div class="field">
+    <%= form.text_field :title, placeholder: 'Task Name' %>
+    <%= form.text_field :content, placeholder: 'Task Details' %>
+    <%= form.datetime_select :duedate, placeholder: 'Deadline' %>
+    <%= form.text_field :status, placeholder: 'Status' %>
+    <%= form.number_field :priority, placeholder: 'Priority' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
