@@ -1,11 +1,12 @@
 class TasksController < ApplicationController
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.all.order(created_at: :desc)
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = Task.new(task_params)
   end
 
   def new
@@ -15,30 +16,38 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to @task, notice: 'Task created!'
+      flash[:success] = 'Task created'
+      redirect_to @task
     else
+      flash.now[:danger] = 'Task cannot be created'
       render :new
       end
     end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
-    @task.update(task_params)
-    redirect_to @task, notice: 'Task updated!'
-  end
+      if @task.update(task_params)
+        flash[:success] = 'Task updated'
+      else
+        flash.now[:danger] = 'Task not updated'
+        render :edit
+      end
+    end
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_url, notice: 'Task destroyed!'
+    flash[:success] = 'Task created'
+    redirect_to tasks_url
   end
 
   private
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :duedate, :status, :priority)
   end
 end
