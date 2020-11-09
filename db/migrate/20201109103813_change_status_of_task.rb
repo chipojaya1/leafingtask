@@ -1,5 +1,4 @@
-class ChangeStatusOfTasks < ActiveRecord::Migration[5.2]
-
+class ChangeStatusOfTask < ActiveRecord::Migration[5.2]
   def up
     change_column :tasks, :status, :string, default: 'pending'
   end

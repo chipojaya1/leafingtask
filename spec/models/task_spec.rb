@@ -1,21 +1,19 @@
 require 'rails_helper'
-RSpec.describe 'task management function', type: :system do
-  describe 'new feautures' do
-    context 'case was the task to create a new task' do
-      it 'should display the new task created' do
-      end
-    end
+
+RSpec.describe Task, type: :model do
+
+  it 'validation does not pass if the task title is empty' do
+    task = Task.new(title: '', content: 'failure test')
+    expect(task).not_to be_valid
   end
-  describe 'list display function' do
-    context 'to transition to the list screen' do
-      it 'already created tasks should be displayed' do
-      end
-    end
+
+  it 'validation does not pass if the task contents are empty' do
+    task = Task.new(title: 'Test from details', content: '')
+    expect(task).not_to be_valid
   end
-  describe 'detailed display function' do
-     context 'to transition to any task detail screen' do
-       it 'contents of relevant task should be displayed' do
-       end
-     end
+
+  it 'Validations pass if the task title and content are present' do
+    task = Task.new(title: 'test', content: 'testtest')
+    expect(task).to be_valid
   end
 end
