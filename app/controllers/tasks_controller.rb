@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    flash[:success] = 'Task created'
+    flash[:success] = 'Task deleted'
     redirect_to tasks_path
   end
 
@@ -58,6 +58,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :duedate, :priority, :status)
   end
 end
