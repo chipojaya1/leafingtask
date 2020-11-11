@@ -1,16 +1,14 @@
 FactoryBot.define do
-  factory :task do
+  factory :task_one do
     title { 'title test' }
-    content { 'content test' }
-    deadline { '2020-09-03 17:00:00' }
-    status { 'status' }
-    priority { '0' }
+    content { 'content test 1' }
   end
-  factory :second_task, class: Task do
+  factory :task_two, class: Task do
     title { 'title test 2' }
-    description { 'content test 2' }
-    deadline { '2020-09-11 00:00:00' }
-    status { 'pending' }
-    priority { '0' }
+    content { 'content test 2' }
+  end
+  factory :task_three, class: Task do
+    title { 'title test 3' }
+    content { 'content test 3' }
   end
 end
