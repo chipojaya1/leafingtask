@@ -24,9 +24,8 @@ RSpec.describe "Tasks management function", type: :system do
   describe 'detailed display function' do
     context 'to transition to any task detail screen' do
      it 'contents of relevant task should be displayed' do
-     test3 = FactoryBot.create(:task, title: 'test2', content: 'content test2')
+     test3 = FactoryBot.create(:task, title: 'test2', content: 'test2')
        visit task_path ( test3 )
-       click_button 'Show'
        expect(page).to have_content 'test2'
      end
     end
