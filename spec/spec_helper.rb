@@ -14,8 +14,6 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require 'capybara/rspec'
-
 RSpec.configure do |config|
   # 「headless_chromeのno-sandboxオプション」を追加する
   config.before(:each) do |example|
