@@ -17,7 +17,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'spring'
-  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
   gem 'faker'
@@ -32,6 +32,7 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
   gem 'webdrivers'
 end
 
