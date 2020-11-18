@@ -35,8 +35,8 @@
   ```heroku create```
 
 
-3. Send codes to heroku from master branch using
-  ```git push heroku master ```
+3. Send codes to heroku from main branch using
+  ```git push heroku main ```
 
 
 4. Run migrations on heroku using
