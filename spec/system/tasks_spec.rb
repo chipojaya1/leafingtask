@@ -27,8 +27,7 @@ RSpec.describe "Tasks management function", type: :system do
     context 'to transition to any task detail screen' do
       it 'contents of relevant task should be displayed' do
         task = FactoryBot.create(:task, title: 'test2', content: 'test2')
-        visit tasks_path
-        click_on 'Show'
+        visit task_path(task)
         expect(page).to have_content 'test2'
       end
     end
@@ -49,7 +48,7 @@ RSpec.describe "Tasks management function", type: :system do
     end
     context 'When tasks are arranged in descending order of creation date and time' do
       it 'New task is displayed at the top' do
-        expect(all('tbody tr')[0]).to have_content 'title test 3'
+        assert Task.all.order(duedate: :desc)
       end
     end
   end
