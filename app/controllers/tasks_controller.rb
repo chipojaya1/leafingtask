@@ -14,6 +14,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.new(task_params)
   end
 
   def edit
@@ -57,6 +58,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :duedate, :priority, :status, :id)
+    params.require(:task).permit(:title, :content, :duedate, :priority, :status)
   end
 end
