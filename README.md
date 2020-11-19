@@ -16,7 +16,7 @@
 ## Label model
 | Column name | Data type |
 |:------------|:-----------|
-| name           | string     |
+| label       | string     |
 ##  Bag label model
 | Column name | Data type |
 |:------------|:-----------|
