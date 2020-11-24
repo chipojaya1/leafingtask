@@ -1,10 +1,8 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Tasks</h1>
 
-<%= link_to 'Sort by status', tasks_path(sort_expired: "true") %>
+<p id="notice"><%= notice %></p>
 
-<%= search_form_for @search do |f| %>
+<%= search_form_for @q do |f| %>
   <div class="field">
     <%= f.search_field :title, placeholder: 'Title search'%>
     <%= f.search_field :status, placeholder: 'Status search' %>
@@ -20,10 +18,14 @@
       <th>Duedate</th>
       <th>Status</th>
       <th>Priority</th>
-      <th colspan="4"></th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
+  <br>
+  <%= link_to 'Sort by status', tasks_path(sort_expired: "true") %>
+
+  <br>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
@@ -40,5 +42,5 @@
   </tbody>
 </table>
 
-<br>
+<hr>
 <%= link_to 'New Task', new_task_path %>

@@ -2,6 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
     if params[:title].present? && params[:status].present?
       @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
     elsif params[:title].present? && params[:status].blank?
