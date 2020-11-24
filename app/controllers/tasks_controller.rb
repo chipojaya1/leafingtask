@@ -2,15 +2,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:title].present?
-      title = params[:title]
+    if params[:sort_expired]
+      @tasks = Task.order(duedate: :desc)
+    elsif params[:title].present?
       @tasks = Task.where('title LIKE ?', "%#{title}%")
     else
-      if params[:sort_expired]
-        @tasks = Task.all.order(duedate: :desc)
-      else
-        @tasks = Task.all.order(updated_at: :desc)
-      end
+      @tasks = Task.order(updated_at: :desc)
     end
   end
 
@@ -61,7 +58,6 @@ class TasksController < ApplicationController
   end
 
   private
-
   def set_task
     @task = Task.find(params[:id])
   end
