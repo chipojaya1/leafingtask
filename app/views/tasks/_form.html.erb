@@ -13,14 +13,9 @@
 
   <div class="field">
     <%= form.text_field :title, placeholder: 'Task Name' %>
-
     <%= form.text_field :content, placeholder: 'Task Details' %>
-
-    <%= form.datetime_select :duedate, placeholder: 'Deadline' %>
-
-    <%= form.text_field :status, placeholder: 'Status' %>
-    <%= form.select :status, [['pending', 'pending'],['started', 'started'], ['completed', 'completed']] %>
-    
+    <%= form.datetime_field :duedate, placeholder: 'Deadline' %>
+    <%= form.select :status, [['pending', 'pending'],['started', 'started'], ['completed', 'completed']], placeholder: 'Status' %>
     <%= form.number_field :priority, placeholder: 'Priority' %>
   </div>
 

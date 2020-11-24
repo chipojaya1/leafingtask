@@ -1,4 +1,16 @@
+<p id="notice"><%= notice %></p>
+
 <h1>Tasks</h1>
+
+<%= link_to 'Sort by status', tasks_path(sort_expired: "true") %>
+
+<%= search_form_for @search do |f| %>
+  <div class="field">
+    <%= f.label :Find %>
+    <%= f.search_field :title, placeholder: 'Title search'%>
+    <%= f.submit "search"  %>
+  </div>
+<% end %>
 
 <table>
   <thead>
@@ -29,5 +41,4 @@
 </table>
 
 <br>
-<%= link_to 'Sort', tasks_path(sort_expired: "true") %>
 <%= link_to 'New Task', new_task_path %>
