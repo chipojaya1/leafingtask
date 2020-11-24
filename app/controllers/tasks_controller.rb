@@ -4,16 +4,17 @@ class TasksController < ApplicationController
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true)
+
     if params[:title].present? && params[:status].present?
-      @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+      @tasks = Task.search_title(params[:title]).search_status(params[:status])
     elsif params[:title].present? && params[:status].blank?
-      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+      @tasks = Task.search_title(params[:title])
     elsif params[:title].blank? && params[:status].present?
-      @tasks = Task.where(status: params[:status])
+      @tasks = Task.search_status(params[:status])
     elsif params[:sort_expired]
       @tasks = Task.order(duedate: :desc)
     else
-      @tasks = Task.order(updated_at: :desc)
+      @tasks = Task.order(created_at: :desc)
     end
   end
 
