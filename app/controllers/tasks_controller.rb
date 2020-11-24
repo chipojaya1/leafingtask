@@ -2,10 +2,14 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:sort_expired]
+    if params[:title].present? && params[:status].present?
+      @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+    elsif params[:title].present? && params[:status].blank?
+      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+    elsif params[:title].blank? && params[:status].present?
+      @tasks = Task.where(status: params[:status])
+    elsif params[:sort_expired]
       @tasks = Task.order(duedate: :desc)
-    elsif params[:title].present?
-      @tasks = Task.where('title LIKE ?', "%#{title}%")
     else
       @tasks = Task.order(updated_at: :desc)
     end

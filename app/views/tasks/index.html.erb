@@ -7,6 +7,7 @@
 <%= search_form_for @search do |f| %>
   <div class="field">
     <%= f.search_field :title, placeholder: 'Title search'%>
+    <%= f.search_field :status, placeholder: 'Status search' %>
     <%= f.submit "search"  %>
   </div>
 <% end %>
