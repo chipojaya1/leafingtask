@@ -13,23 +13,23 @@
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Content</th>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Details</th>
       <th>Duedate</th>
-      <th>Status</th>
-      <th>Priority</th>
-      <th colspan="3"></th>
+      <th><%= link_to 'Sort by status', tasks_path(sort_expired: "true") %></th>
+      <th><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
-  <br>
-  <%= link_to 'Sort by status', tasks_path(sort_expired: "true") %>
+  <% t=0 %>
 
-  <br>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= task.title %></td>
+        <td><%= t += 1 %></td>
+        <td><%= link_to task.title ,task_path(task.id) %></td>
         <td><%= task.content %></td>
         <td><%= task.duedate %></td>
         <td><%= task.status %></td>
