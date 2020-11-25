@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true)
+    @tasks = Task.page(params[:page])
 
     if params[:title].present? && params[:status].present?
       @tasks = Task.search_title(params[:title]).search_status(params[:status])
@@ -12,11 +13,11 @@ class TasksController < ApplicationController
     elsif params[:title].blank? && params[:status].present?
       @tasks = Task.search_status(params[:status])
     elsif params[:sort_expired]
-      @tasks = Task.order(duedate: :desc)
+      @tasks = Task.all.order(duedate: :desc)
     elsif params[:sort_priority]
-      @tasks = Task.order(priority: :desc)
+      @tasks = Task.all.order(priority: :desc)
     else
-      @tasks = Task.order(created_at: :desc)
+      @tasks = Task.all.order(created_at: :desc)
     end
   end
 

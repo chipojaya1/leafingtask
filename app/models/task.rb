@@ -8,4 +8,6 @@ class Task < ApplicationRecord
 
   scope :priority, -> { order(priority: :desc) }
   enum priority: { low: 0, medium: 1, high: 2 }
+
+  paginates_per 6
 end
