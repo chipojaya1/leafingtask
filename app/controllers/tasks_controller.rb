@@ -4,7 +4,8 @@ class TasksController < ApplicationController
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true)
-    @tasks = Task.page(params[:page])
+    @tasks = Task.page(params[:page]).per(6)
+    @tasks = @tasks.page(params[:page])
 
     if params[:title].present? && params[:status].present?
       @tasks = Task.search_title(params[:title]).search_status(params[:status])
