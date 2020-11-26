@@ -1,11 +1,11 @@
 <div class="container">
-  <h1>Tasks</h1>
+  <%= link_to root_path %><h1>Tasks</h1>
   <p id="notice"><%= notice %></p>
 
-  <%= search_form_for @q do |f| %>
+  <%= search_form_for @search do |f| %>
     <div class="field">
-      <%= f.search_field :title, placeholder: 'Title' %>
-      <%= f.search_field :status, placeholder: 'Status' %>
+      <%= f.search_field :title, placeholder: 'title' %>
+      <%= f.search_field :status, placeholder: 'status' %>
       <%= f.submit "search", class: "btn btn-primary"  %>
     </div>
   <% end %>
@@ -43,5 +43,9 @@
       <% end %>
     </tbody>
   </table>
+
   <hr>
+
+  <%= paginate @tasks, class:"mt-5" %>
+
 </div>
