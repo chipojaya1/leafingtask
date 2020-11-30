@@ -13,15 +13,14 @@
 <%= link_to 'Main', tasks_path %>
 
   <div class="field">
+    <p class="text-left">
     <%= form.text_field :title, placeholder: 'Task Name' %>
     <%= form.text_field :content, placeholder: 'Task Details' %>
     <%= form.date_field :duedate, placeholder: 'Deadline' %>
     <%= form.select :status, ['pending','started','completed'], placeholder: 'Status' %>
     <%= form.select :priority,['low','medium','high'], placeholder: 'Priority' %>
-  </div>
-
-  <div class="actions">
     <%= form.submit %>
+    </p>
   </div>
 <% end %>
 </div>

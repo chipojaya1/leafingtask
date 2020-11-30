@@ -1,25 +1,23 @@
 body{
+  background: url("https://www.washingtonpost.com/resizer/aO0xdgwGi5F55Rwi4MvgO-Duabo=/1484x0/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/UYLT2GML6BA2TGWEGXYVUADQSM.jpg") center center / cover no-repeat;
   font-size: 2rem;
  }
 .container{
-  background: url("https://www.washingtonpost.com/resizer/aO0xdgwGi5F55Rwi4MvgO-Duabo=/1484x0/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/UYLT2GML6BA2TGWEGXYVUADQSM.jpg") center center / cover no-repeat;
   width: 100%;
-  margin: 0 auto;
-  position: relative;
-  min-height: 100;
+  margin-top: 10rem;
 }
 h1{
   text-align: left;
   text-decoration-style: wavy;
   font-weight: bolder;
   font-style: italic;
-  font-size: 5rem;
 }
 table th, td{
   padding: 20px;
   background-color: #ffdecb;
+  font-size: 20px;
 }
 .field{
-  text-align: right;
+  text-align: left;
   font-size: 15px;
 }

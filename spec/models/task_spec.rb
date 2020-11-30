@@ -12,7 +12,7 @@ RSpec.describe Task, type: :model do
     expect(task).not_to be_valid
   end
 
-  it 'Validations pass if the task title and content are present' do
+  it 'validations pass if the task title and content are present' do
     task = Task.new(title: 'test', content: 'testtest')
     expect(task).to be_valid
   end
