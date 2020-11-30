@@ -12,8 +12,8 @@ RSpec.describe Task, type: :model do
     expect(task).not_to be_valid
   end
 
-  it 'Validations pass if the task title and content are present' do
-    task = Task.new(title: 'test', content: 'testtest')
+  it 'validations pass if the task title and content are present' do
+    task = Task.new(title: 'test', content: 'testtest', duedate: '2020-11-30 17:00:00')
     expect(task).to be_valid
   end
 end

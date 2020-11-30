@@ -11,7 +11,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-
+gem 'kaminari'
+gem 'ransack'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
@@ -22,6 +23,9 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'faker'
   gem 'launchy'
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do

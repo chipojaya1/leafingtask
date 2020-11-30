@@ -1,13 +1,29 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  PER = 6
   def index
-    @tasks = Task.all.order(duedate: :desc)
+    @search_params = task_search_params
+    @tasks = Task.search(@search_params)
+    if params[:title].present? && params[:status].present?
+     @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+    elsif params[:title].present? && params[:status].blank?
+      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+    elsif params[:title].blank? && params[:status].present?
+      @tasks = Task.where(status: params[:status])
+    elsif params[:sort_creation]
+      @tasks = Task.all.order(created_at: :desc)
+    elsif params[:sort_priority]
+      @tasks = Task.all.order(priority: :desc)
+    else
+      @tasks = Task.all.order(duedate: :desc)
+    end
+    @tasks = @tasks.page(params[:page]).per(PER)
   end
 
   def new
     if params[:back]
       @task = Task.new(task_params)
+      @task.duedate = Date.today
     else
       @task = Task.new
     end
@@ -51,9 +67,12 @@ class TasksController < ApplicationController
   end
 
   private
-
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def task_search_params
+    params.fetch(:search, {}).permit(:title, :status )
   end
 
   def task_params
