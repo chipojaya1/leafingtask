@@ -10,12 +10,12 @@ class TasksController < ApplicationController
       @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
     elsif params[:title].blank? && params[:status].present?
       @tasks = Task.where(status: params[:status])
-    elsif params[:sort_expired]
-      @tasks = Task.all.order(duedate: :desc)
+    elsif params[:sort_creation]
+      @tasks = Task.all.order(created_at: :desc)
     elsif params[:sort_priority]
       @tasks = Task.all.order(priority: :desc)
     else
-      @tasks = Task.all.order(created_at: :desc)
+      @tasks = Task.all.order(duedate: :desc)
     end
     @tasks = @tasks.page(params[:page]).per(PER)
   end

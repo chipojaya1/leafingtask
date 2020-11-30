@@ -18,7 +18,8 @@
           <th>No.</th>
           <th>Name</th>
           <th>Details</th>
-          <th><%= link_to 'Sort by duedate', tasks_path(sort_expired: "true") %></th>
+          <th><%= link_to 'Sort by creation', tasks_path(sort_creation: "true") %></th>
+          <th><%= link_to 'Sort by duedate', tasks_path(sort_duedate: "true") %></th>
           <th>Status</th>
           <th><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
           <th colspan="4"></th>
@@ -33,6 +34,7 @@
             <td><%= t += 1 %></td>
             <td><%= link_to task.title ,task_path(task.id) %></td>
             <td><%= task.content %></td>
+            <td><%= task.created_at.strftime('%Y/%-m/%-d') %></td>
             <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
             <td><%= task.status %></td>
             <td><%= task.priority %></td>
