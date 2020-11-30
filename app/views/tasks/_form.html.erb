@@ -1,3 +1,4 @@
+<div class="container">
 <%= form_with(model: @task, local: true) do |form| %>
 <% if @task.errors.present? %>
   <% @task.errors.full_messages.each do |message| %>
@@ -14,12 +15,13 @@
   <div class="field">
     <%= form.text_field :title, placeholder: 'Task Name' %>
     <%= form.text_field :content, placeholder: 'Task Details' %>
-    <%= form.datetime_field :duedate, placeholder: 'Deadline' %>
-    <%= form.select :status, [['pending', 'pending'],['started', 'started'], ['completed', 'completed']], placeholder: 'Status' %>
-    <%= form.select :priority,[['low', '0'],['medium', '1'], ['high', '2']], placeholder: 'Priority' %>
+    <%= form.date_field :duedate, placeholder: 'Deadline' %>
+    <%= form.select :status, ['pending','started','completed'], placeholder: 'Status' %>
+    <%= form.select :priority,['low','medium','high'], placeholder: 'Priority' %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+</div>

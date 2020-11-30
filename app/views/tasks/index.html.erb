@@ -1,51 +1,51 @@
 <div class="container">
   <%= link_to root_path %><h1>Tasks</h1>
   <p id="notice"><%= notice %></p>
+  <div class="container-fluid">
+    <%= form_with(url: tasks_path, method: :get, local: true, class: "form-inline") do |f| %>
+      <div class="field">
+        <%= f.search_field :title, placeholder: 'title keyword', value: @search_params[:title] %>
+        <%= f.select :status, ["pending", "started", "completed" ], selected: @search_params[:status], include_blank: "" %>
+        <%= f.submit "search", class: "btn btn-primary"  %>
+      </div>
+    <% end %>
 
-  <%= search_form_for @search do |f| %>
-    <div class="field">
-      <%= f.search_field :title, placeholder: 'title' %>
-      <%= f.search_field :status, placeholder: 'status' %>
-      <%= f.submit "search", class: "btn btn-primary"  %>
-    </div>
-  <% end %>
+    <p class=text-center><%= link_to 'New Task', new_task_path, class: "btn btn-success" %></p>
 
-  <p class=text-center><%= link_to 'New Task', new_task_path, class: "btn btn-success" %></p>
-
-  <table class="text-md-left">
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>Name</th>
-        <th>Details</th>
-        <th><%= link_to 'Sort by duedate', tasks_path(sort_expired: "true") %></th>
-        <th>Status</th>
-        <th><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
-        <th colspan="4"></th>
-      </tr>
-    </thead>
-
-    <% t=0 %>
-
-    <tbody>
-      <% @tasks.each do |task| %>
+    <table class="text-md-left table-striped">
+      <thead>
         <tr>
-          <td><%= t += 1 %></td>
-          <td><%= link_to task.title ,task_path(task.id) %></td>
-          <td><%= task.content %></td>
-          <td><%= task.duedate %></td>
-          <td><%= task.status %></td>
-          <td><%= task.priority %></td>
-          <td><%= link_to 'Show', task, class: "btn btn-warning" %></td>
-          <td><%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %></td>
-          <td><%= link_to 'Delete', task, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <th>No.</th>
+          <th>Name</th>
+          <th>Details</th>
+          <th><%= link_to 'Sort by duedate', tasks_path(sort_expired: "true") %></th>
+          <th>Status</th>
+          <th><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
+          <th colspan="4"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
 
-  <hr>
+      <% t=0 %>
 
-  <%= paginate @tasks, class:"mt-5" %>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= t += 1 %></td>
+            <td><%= link_to task.title ,task_path(task.id) %></td>
+            <td><%= task.content %></td>
+            <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
+            <td><%= task.status %></td>
+            <td><%= task.priority %></td>
+            <td><%= link_to 'Show', task, class: "btn btn-warning" %></td>
+            <td><%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %></td>
+            <td><%= link_to 'Delete', task, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
+    <hr>
+
+    <%= paginate @tasks, class:"mt-5" %>
+  </div>
 </div>

@@ -2,28 +2,21 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   PER = 6
   def index
-    @search = Task.ransack(params[:q])
-    @tasks = @search.result.order(created_at: :desc)
-
-    if params[:task].present?
-      if params[:task][:title].present? && params[:task][:status].present?
-       @tasks = @tasks.where('title LIKE ?', "%#{params[:task][:title]}%")
-       @tasks = @tasks.where(status: params[:task][:status])
-      elsif params[:task][:title].present? && params[:task][:status].blank?
-        @tasks = @tasks.where('title LIKE ?', "%#{params[:task][:title]}%")
-      elsif params[:task][:title].blank? && params[:task][:status].present?
-        @tasks = @tasks.where(status: params[:task][:status])
-      end
-    end
-    
-    if params[:sort_expired]
+    @search_params = task_search_params
+    @tasks = Task.search(@search_params)
+    if params[:title].present? && params[:status].present?
+     @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+    elsif params[:title].present? && params[:status].blank?
+      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+    elsif params[:title].blank? && params[:status].present?
+      @tasks = Task.where(status: params[:status])
+    elsif params[:sort_expired]
       @tasks = Task.all.order(duedate: :desc)
     elsif params[:sort_priority]
       @tasks = Task.all.order(priority: :desc)
     else
       @tasks = Task.all.order(created_at: :desc)
     end
-
     @tasks = @tasks.page(params[:page]).per(PER)
   end
 
@@ -76,6 +69,10 @@ class TasksController < ApplicationController
   private
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def task_search_params
+    params.fetch(:search, {}).permit(:title, :status )
   end
 
   def task_params

@@ -4,7 +4,9 @@ body{
 .container{
   background: url("https://www.washingtonpost.com/resizer/aO0xdgwGi5F55Rwi4MvgO-Duabo=/1484x0/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/UYLT2GML6BA2TGWEGXYVUADQSM.jpg") center center / cover no-repeat;
   width: 100%;
-  margin-top: 10px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 100;
 }
 h1{
   text-align: left;
