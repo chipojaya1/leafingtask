@@ -18,7 +18,6 @@ RSpec.describe "Tasks management function", type: :system do
         select 'low'
         click_on 'Create Task'
         expect(page).to have_content 'title test'
-        expect(page).to have_content 'content test'
       end
     end
   end
@@ -99,4 +98,23 @@ RSpec.describe "Tasks management function", type: :system do
     end
   end
 
+  let!(:task){ FactoryBot.create(:task, title: 'task') }
+  before do
+    FactoryBot.create(:task)
+    FactoryBot.create(:second_task)
+    FactoryBot.create(:third_task)
+    visit tasks_path
+  end
+  describe 'list display function' do
+    context 'When transitioning to the list screen' do
+      it 'already created tasks list should be displayed' do
+        expect(page).to have_content 'title test'
+      end
+    end
+    context 'When tasks are arranged in descending order of creation date and time' do
+      it 'New task is displayed at the top' do
+        assert Task.all.order(duedate: :desc)
+      end
+    end
+  end
 end
