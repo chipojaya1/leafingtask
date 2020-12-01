@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :authenticate_user
   before_action :logged_in?
   PER = 6
-  
+
   def index
     @search_params = task_search_params
     @tasks = Task.search(@search_params)
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
@@ -72,7 +72,7 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_search_params
