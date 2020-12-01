@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :current_user
+  before_action :authenticate_user
+  before_action :logged_in?
   PER = 6
+  
   def index
     @search_params = task_search_params
     @tasks = Task.search(@search_params)
