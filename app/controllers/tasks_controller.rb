@@ -14,12 +14,12 @@ class TasksController < ApplicationController
       @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
     elsif params[:title].blank? && params[:status].present?
       @tasks = Task.where(status: params[:status])
-    elsif params[:sort_creation]
-      @tasks = Task.all.order(created_at: :desc)
+    elsif params[:sort_expired]
+      @tasks = Task.order(duedate: :desc)
     elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :desc)
+      @tasks = Task.order(priority: :desc)
     else
-      @tasks = Task.all.order(duedate: :desc)
+      @tasks = Task.order(created_at: :desc)
     end
     @tasks = @tasks.page(params[:page]).per(PER)
   end
@@ -55,14 +55,14 @@ class TasksController < ApplicationController
   end
 
   def update
-      if @task.update(task_params)
-        flash[:success] = 'Task updated'
-        redirect_to tasks_path
-      else
-        flash.now[:danger] = 'Task not updated'
-        render :edit
-      end
+    if @task.update(task_params)
+      flash[:success] = 'Task updated'
+      redirect_to tasks_path
+    else
+      flash.now[:danger] = 'Task not updated'
+      render :edit
     end
+  end
 
   def destroy
     @task.destroy
