@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, { only: [:index, :show, :edit, :update] }
   PER = 6
 
   def new
@@ -25,7 +26,13 @@ class UsersController < ApplicationController
     redirect_to tasks_path if @user.id !=  params[:id].to_i
   end
 
-private
+  def update
+  end
+
+  def destroy
+  end
+
+  private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

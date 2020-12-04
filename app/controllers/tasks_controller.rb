@@ -7,19 +7,19 @@ class TasksController < ApplicationController
 
   def index
     @search_params = task_search_params
-    @tasks = current_user.tasks.search(@search_params)
+    @tasks = Task.search(@search_params)
     if params[:title].present? && params[:status].present?
-     @tasks = current_user.tasks.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+     @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
     elsif params[:title].present? && params[:status].blank?
-      @tasks = current_user.tasks.where('title LIKE ?', "%#{params[:title]}%")
+      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
     elsif params[:title].blank? && params[:status].present?
-      @tasks = current_user.tasks.where(status: params[:status])
-    elsif params[:sort_expired]
-      @tasks = current_user.tasks.order(duedate: :desc)
+      @tasks = Task.where(status: params[:status])
+    elsif params[:sort_creation]
+      @tasks = current_user.tasks.order(created_at: :desc)
     elsif params[:sort_priority]
       @tasks = current_user.tasks.order(priority: :desc)
     else
-      @tasks = current_user.tasks.order(created_at: :desc)
+      @tasks = current_user.tasks.order(duedate: :desc)
     end
     @tasks = current_user.tasks.page(params[:page]).per(PER)
   end
@@ -65,9 +65,13 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-    flash[:success] = 'Task deleted'
-    redirect_to tasks_path
+    if @task.destroy
+      flash[:success] = 'Task deleted'
+      redirect_to tasks_path
+    else
+      flash[:success] = 'Task not deleted'
+      redirect_to admin_users_path
+    end
   end
 
   private

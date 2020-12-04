@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   PER = 6
 
   def index
-    @users = User.select(:id, :name, :email, :admin).order(created_at: :asc)
+    @users = User.all.order(created_at: :asc)
   end
 
   def new
@@ -59,7 +59,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def admin_necessary
-    unless current_user.admin?
+    if not current_user.admin
       flash[:notice] = "only for admins！"
       redirect_to root_path
     end
