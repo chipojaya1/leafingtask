@@ -45,6 +45,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     arel (9.0.0)
+    bcrypt (3.1.11)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -163,10 +164,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rake (13.0.1)
-    ransack (2.4.0)
-      activerecord (>= 5.2.4)
-      activesupport (>= 5.2.4)
-      i18n
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -246,6 +243,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (= 3.1.11)
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
@@ -262,7 +260,6 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.4)
-  ransack
   rspec-rails (~> 4.0.1)
   sass-rails (~> 5.0)
   selenium-webdriver

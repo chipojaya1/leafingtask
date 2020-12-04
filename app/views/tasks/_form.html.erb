@@ -1,16 +1,14 @@
 <div class="container">
 <%= form_with(model: @task, local: true) do |form| %>
-<% if @task.errors.present? %>
-  <% @task.errors.full_messages.each do |message| %>
+<% if @user.errors.any? %>
+  <div class="bg-danger text-white">
     <ul>
-      <div class='alert alert-notice' role='alert'>
-        <li><%= message %></li>
-      </div>
+      <% @user.errors.full_messages.each do |message| %>
+        <li>・<%= message %></li>
+      <% end %>
     </ul>
-  <% end %>
+  </div>
 <% end %>
-
-<%= link_to 'Main', tasks_path %>
 
   <div class="field">
     <p class="text-left">
@@ -19,7 +17,7 @@
     <%= form.date_field :duedate, placeholder: 'Deadline' %>
     <%= form.select :status, ['pending','started','completed'], placeholder: 'Status' %>
     <%= form.select :priority,['low','medium','high'], placeholder: 'Priority' %>
-    <%= form.submit %>
+    <%= form.submit "Submit", class:"btn btn-primary" %>
     </p>
   </div>
 <% end %>

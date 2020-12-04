@@ -11,8 +11,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'kaminari'
-gem 'ransack'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
@@ -21,7 +19,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
-  gem 'faker'
   gem 'launchy'
   gem 'pry-rails'
   gem 'better_errors'
@@ -41,3 +38,6 @@ group :test do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'kaminari'
+gem 'bcrypt', '3.1.11'
+gem 'faker'

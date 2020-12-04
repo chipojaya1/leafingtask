@@ -1,0 +1,20 @@
+<h1 class = "center">Sign up!</h1>
+<br>
+<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.email_field :email, class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password, class:"form-control" %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit "login" ,class:"login_button", class:"btn btn-primary" %>
+  </div>
+<% end %>
+<br>
+<br>
+<br>
+<%= link_to 'join', new_user_path ,class:"new_user_btn" %>

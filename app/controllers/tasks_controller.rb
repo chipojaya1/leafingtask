@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :current_user
+  before_action :authenticate_user
+  before_action :logged_in?
   PER = 6
+
   def index
     @search_params = task_search_params
     @tasks = Task.search(@search_params)
@@ -11,13 +15,13 @@ class TasksController < ApplicationController
     elsif params[:title].blank? && params[:status].present?
       @tasks = Task.where(status: params[:status])
     elsif params[:sort_creation]
-      @tasks = Task.all.order(created_at: :desc)
+      @tasks = current_user.tasks.order(created_at: :desc)
     elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :desc)
+      @tasks = current_user.tasks.order(priority: :desc)
     else
-      @tasks = Task.all.order(duedate: :desc)
+      @tasks = current_user.tasks.order(duedate: :desc)
     end
-    @tasks = @tasks.page(params[:page]).per(PER)
+    @tasks = current_user.tasks.page(params[:page]).per(PER)
   end
 
   def new
@@ -36,7 +40,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
@@ -51,24 +55,28 @@ class TasksController < ApplicationController
   end
 
   def update
-      if @task.update(task_params)
-        flash[:success] = 'Task updated'
-        redirect_to tasks_path
-      else
-        flash.now[:danger] = 'Task not updated'
-        render :edit
-      end
+    if @task.update(task_params)
+      flash[:success] = 'Task updated'
+      redirect_to tasks_path
+    else
+      flash.now[:danger] = 'Task not updated'
+      render :edit
     end
+  end
 
   def destroy
-    @task.destroy
-    flash[:success] = 'Task deleted'
-    redirect_to tasks_path
+    if @task.destroy
+      flash[:success] = 'Task deleted'
+      redirect_to tasks_path
+    else
+      flash[:success] = 'Task not deleted'
+      redirect_to admin_users_path
+    end
   end
 
   private
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_search_params
