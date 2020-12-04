@@ -2,10 +2,9 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :admin_necessary
   PER = 6
+
   def index
-    # @users = User.select(:name, :id)
-    # @tasks = Task.includes(:user)
-    @users = User.includes(:tasks)
+    @users = User.select(:id, :name, :email, :admin).order(created_at: :asc)
   end
 
   def new
@@ -23,9 +22,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @tasks = Task.where(user_id: @user.id)
-  #  @tasks = @user.tasks
-  #  @tasks = @tasks.page(params[:page]).per(PER)
+    @tasks = @user.tasks
+    @tasks = @tasks.page(params[:page]).per(PER)
   end
 
   def edit

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  PER = 6
+
   def new
     @user = User.new
     if logged_in?
@@ -18,7 +20,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = current_user
+    @tasks = @user.tasks&.page(params[:page]).per(PER)
+    redirect_to tasks_path if @user.id !=  params[:id].to_i
   end
 
 private
