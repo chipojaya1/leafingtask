@@ -27,9 +27,17 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.update(user_params)
+      redirect_to admin_user_path
+    else
+      render :edit
+    end
   end
 
   def destroy
+    @user.destroy
+    flash[:success] = 'Task not deleted'
+    redirect_to admin_users_path
   end
 
   private

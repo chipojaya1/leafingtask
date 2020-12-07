@@ -1,6 +1,7 @@
-<h1 class = "center">Sign up!</h1>
+<p id="notice"><%= notice %></p>
+<h1 class="center">Login!</h1>
 <br>
-<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+<%= form_with(scope: :session, local: true) do |f| %>
   <div class="field">
     <%= f.label :email %><br>
     <%= f.email_field :email, class:"form-control" %>
@@ -11,10 +12,11 @@
   </div>
   <br>
   <div class="actions">
-    <%= f.submit "login" ,class:"login_button", class:"btn btn-primary" %>
+    <%= f.submit "login" , class: "btn btn-primary btn-lg" %>
   </div>
 <% end %>
-<br>
-<br>
-<br>
-<%= link_to 'join', new_user_path ,class:"new_user_btn" %>
+
+<hr>
+<div class="text-center">
+  Don't have an account?<%= link_to 'Create account', new_user_path, class:"btn btn-info btn-lg" %>
+</div>

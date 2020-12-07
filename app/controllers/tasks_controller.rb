@@ -63,13 +63,9 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    if @task.destroy
-      flash[:success] = 'Task deleted'
-      redirect_to tasks_path
-    else
-      flash[:success] = 'Task not deleted'
-      redirect_to admin_users_path
-    end
+    @task.destroy
+    flash[:success] = 'Task deleted'
+    redirect_to tasks_path
   end
 
   private

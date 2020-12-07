@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :current_user
   before_action :admin_necessary
   PER = 6
 
@@ -22,17 +23,17 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @tasks = @user.tasks
-    @tasks = @tasks.page(params[:page]).per(PER)
+    @tasks = Task.where(user_id: @user.id)
   end
 
   def edit
   end
 
   def update
+    puts @user
     if @user.update(user_params)
       flash[:success] = "update successful"
-      redirect_to admin_user_path(@user)
+      redirect_to admin_user_path
     else
       flash.now[:danger] = "update failed"
       render :edit
@@ -54,14 +55,14 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
-  end
-
   def admin_necessary
-    if not current_user.admin
+    unless current_user.admin?
       flash[:notice] = "only for admins！"
       redirect_to root_path
     end
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 end
