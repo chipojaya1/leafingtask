@@ -1,6 +1,6 @@
 <div class="container">
 <%= form_with(model: @task, local: true) do |form| %>
-<% if @user.errors.any? %>
+<% if @task.errors.any? %>
   <div class="bg-danger text-white">
     <ul>
       <% @user.errors.full_messages.each do |message| %>

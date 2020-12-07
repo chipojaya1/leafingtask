@@ -7,7 +7,6 @@ class TasksController < ApplicationController
 
   def index
     @search_params = task_search_params
-    @tasks = Task.search(@search_params)
     if params[:title].present? && params[:status].present?
      @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
     elsif params[:title].present? && params[:status].blank?
@@ -19,9 +18,8 @@ class TasksController < ApplicationController
     elsif params[:sort_priority]
       @tasks = current_user.tasks.order(priority: :desc)
     else
-      @tasks = current_user.tasks.order(duedate: :desc)
+      @tasks = Task.where(user_id: @current_user.id).order(duedate: :desc).page(params[:page]).per(PER)
     end
-    @tasks = current_user.tasks.page(params[:page]).per(PER)
   end
 
   def new
