@@ -42,9 +42,10 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      flash[:info] = "#{@user.name} deleted"
+      flash[:success] = "user deleted!"
       redirect_to admin_users_path
     else
+      flash[:danger] = "user not deleted"
       redirect_to admin_users_path
     end
   end

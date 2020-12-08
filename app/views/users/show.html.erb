@@ -1,8 +1,20 @@
-<h1><%= @user.name %>'s Profile</h1>
-<p>Email address: <%= @user.email %></p>
-<% if current_user.admin? %>
-  <%= link_to "Admin show", admin_users_path %>
-<% end %>
+<h1 class = "center"><%= @user.name %>'s Profile</h1>
+<div class ="col-md-3">
+  <table class="user_show_table  clearfix">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <td><%= @user.name%></td>
+      </tr>
+      <tr>
+        <th>Email Address</th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+      <td><%= link_to 'New Task', new_task_path, class:"btn btn-info btn-lg" %></td>  
+      </tr>
+    </thead>
+  </table>
+</div>
+
 <hr>
-<%= link_to 'New Task', new_task_path, class:"btn btn-info btn-lg" %> |
-<%= link_to 'back', users_path, class:"btn btn-danger btn-lg" %>

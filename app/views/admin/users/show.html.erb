@@ -22,12 +22,14 @@
         <th>User admin priviledges</th>
         <td><%= @user.admin? ? "Yes":"No" %></td>
       </tr>
+        <td>Return to User Management <%= link_to 'Back', admin_users_path, class: 'btn btn-primary btn-lg' %>
+      </td>
     </thead>
   </table>
 </div>
 
 <hr>
-
+<div class ="text-right">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -43,12 +45,11 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td><%= task.duedate %></td>
+        <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'Return', admin_users_path %>
+</div>
