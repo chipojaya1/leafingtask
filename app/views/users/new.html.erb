@@ -1,45 +1,44 @@
-<p id="notice"><%= notice %></p>
-<h1>Sign up!</h1>
-
 <% if @user.errors.any? %>
- <div id="error_explanation">
-   <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
-
-   <ul>
-     <% @user.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-     <% end %>
-   </ul>
- </div>
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      <% @user.errors.full_messages.each do |message|%>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+  </div>
 <% end %>
+<br>
 
-<%= form_with(model: @user, local: true) do |f| %>
-<div class="field">
-  <%= f.label :name %><br>
-  <%= f.text_field :name, class:"form-control" %>
-</div>
+<div class="row">
+  <div class="col-xs-4 col-xs-push-4 form">
+    <h1>Sign up for Everleaf</h1>
+    <p>Check out your Tasks Schedule</p>
+    <%= form_with(model: @user, local: true) do |form|%>
+      <p><%= form.text_field :name, placeholder: 'name', class: "log-in-tag" %></p>
+      <br>
+      <p><%= form.email_field :email, placeholder: 'email', class: "log-in-tag" %></p>
+      <br>
+      <p><%= form.password_field :password, placeholder: 'password', class: "log-in-tag" %></p>
+      <br>
+      <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation', class: "log-in-tag" %></p>
+      <br>
+      <div class="row">
+        <div class="col-xs-12 form-btn">
+          <%= form.submit "Create account" %>
+        </div>
+      </div>
+    <% end %>
+    <hr>
+    <p>Already have an account？<%= link_to 'Login', new_session_path %></p>
+  </div>
 
-<div class="field">
- <%= f.label :email %><br>
- <%= f.email_field :email, class:"form-control" %>
-</div>
-
-<div class="field">
- <%= f.label :password %><br>
- <%= f.password_field :password, class:"form-control" %>
-</div>
-
-<div class="field">
- <%= f.label :password_confirmation %><br>
- <%= f.password_field :password_confirmation, class:"form-control" %>
-</div>
-
-<div class="actions">
- <%= f.submit "Create account", class:"btn btn-primary btn-lg" %>
-</div>
-<%  end %>
-
-<hr>
-<div class="text-center">
-  Already have an account?<%= link_to 'Login', new_user_path, class:"btn btn-info btn-lg" %>
-</div>
+  <div class="row">
+    <div class="col-xs-12 space">
+    </div>
+    <div class="col-xs-12 space">
+    </div>
+    <div class="col-xs-12 space">
+    </div>
+    <div class="col-xs-12 space">
+    </div>
+  </div>

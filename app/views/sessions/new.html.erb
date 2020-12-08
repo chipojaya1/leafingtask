@@ -1,22 +1,32 @@
-<p id="notice"><%= notice %></p>
-<h1 class="center">Login!</h1>
-<br>
-<%= form_with(scope: :session, local: true) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email, class:"form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password, class:"form-control" %>
-  </div>
-  <br>
-  <div class="actions">
-    <%= f.submit "login" , class: "btn btn-primary btn-lg" %>
-  </div>
-<% end %>
+<div class="row">
+  <div class="col-xs-4 col-xs-push-4 form">
 
-<hr>
-<div class="text-center">
-  Don't have an account?<%= link_to 'Create account', new_user_path, class:"btn btn-info btn-lg" %>
+    <h1>Everleaf Login</h1>
+    <%= form_with(scope: :session, url: sessions_path, local: true) do |form|%>
+      <p><%= form.email_field :email, placeholder: 'email', class: "log-in-tag" %></p>
+      <br>
+      <p><%= form.password_field :password, placeholder: 'password', class: "log-in-tag" %></p>
+      <br>
+      <div class="row">
+        <div class="col-xs-12 form-btn">
+        <%= form.submit "Login" %>
+        </div>
+      </div>
+    <% end %>
+
+    <hr>
+
+    <p>New to Everleaf？<%= link_to 'Create account', new_user_path %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 space">
+  </div>
+  <div class="col-xs-12 space">
+  </div>
+  <div class="col-xs-12 space">
+  </div>
+  <div class="col-xs-12 space">
+  </div>
 </div>
