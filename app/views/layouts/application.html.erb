@@ -4,6 +4,7 @@
     <title>EverleafApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  %>
     <%= stylesheet_link_tag "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" %>
@@ -29,7 +30,7 @@
                 <% if current_user.admin? %>
                   <li><%= link_to "Admin", admin_users_path %></li>
                 <% end %>
-                <li><%= link_to "Logout", session_path(current_user.id), class: 'btn btn-danger', method: :delete %></li>
+                <li><%= button_to "Logout", session_path(current_user.id), :method=>:delete, :class=>:destroy, class:"btn btn-danger btn-lg" %></li>
               <% else %>
                 <li><%= link_to "Login", new_session_path, class: 'btn btn-danger'  %></li>
                 <li><%= link_to "Sign up", new_admin_user_path(user), class: 'btn btn-warning' %></li>
