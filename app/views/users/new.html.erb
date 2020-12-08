@@ -14,13 +14,13 @@
     <h1>Sign up for Everleaf</h1>
     <p>Check out your Tasks Schedule</p>
     <%= form_with(model: @user, local: true) do |form|%>
-      <p><%= form.text_field :name, placeholder: 'name', class: "log-in-tag" %></p>
+      <p><%= form.text_field :name, placeholder: 'name', class: "field" %></p>
       <br>
-      <p><%= form.email_field :email, placeholder: 'email', class: "log-in-tag" %></p>
+      <p><%= form.email_field :email, placeholder: 'email', class: "field" %></p>
       <br>
-      <p><%= form.password_field :password, placeholder: 'password', class: "log-in-tag" %></p>
+      <p><%= form.password_field :password, placeholder: 'password', class: "field" %></p>
       <br>
-      <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation', class: "log-in-tag" %></p>
+      <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation', class: "field" %></p>
       <br>
       <div class="row">
         <div class="col-xs-12 form-btn">
@@ -29,7 +29,7 @@
       </div>
     <% end %>
     <hr>
-    <p>Already have an account？<%= link_to 'Login', new_session_path %></p>
+    <h2>Already have an account？<%= link_to 'Login', new_session_path, class: 'btn btn-warning' %></h2>
   </div>
 
   <div class="row">
