@@ -55,8 +55,12 @@ RSpec.describe 'User registration/login/logout function', type: :system do
       end
 
       it 'should not be able to access the management screen' do
+        visit new_session_path
+        fill_in 'session_email', with: 'user1@example.com'
+        fill_in 'session_password', with: 'password'
+        click_button 'Login'
         visit admin_users_path
-        expect(page).to have_content 'only for admins！'
+        expect(page).to_not have_content 'Users'
       end
 
       it 'should be able to log out' do
@@ -73,24 +77,24 @@ RSpec.describe 'User registration/login/logout function', type: :system do
   describe "Management screen test" do
     context "If there are no admin users" do
       it "be able to access management page" do
+        user = User.create(name: "Chipo", email: "chipo2@gmail.com", password: "Hyunjoong1*", password_confirmation: "Hyunjoong1*", admin: true)
         visit new_session_path
-        fill_in "session_email", with: "admin@example.com"
-        fill_in "session_password", with: "12345678"
+        fill_in "session_email", with: "chipo2@gmail.com"
+        fill_in "session_password", with: "Hyunjoong1*"
         click_button 'Login'
         visit admin_users_path
-        expect(page).to have_content "List of Users"
+        expect(page).to have_content "Users"
       end
 
       it 'should create new user' do
-        visit admin_users_path
-        click_button 'Create user'
-        fill_in 'name', with: 'abc'
-        fill_in 'email', with: 'abc@example.com'
-        fill_in 'password', with: 'password'
-        fill_in 'password_confirmation', with: 'password'
-        click_button 'Submit'
-        expect(page).to have_content 'abc'
-        expect(page).to have_content 'abc@example.com'
+        user = User.create(name: "Chipo", email: "chipo2@gmail.com", password: "Hyunjoong1*", password_confirmation: "Hyunjoong1*", admin: true)
+        visit new_session_path
+        fill_in "session_email", with: "chipo2@gmail.com"
+        fill_in "session_password", with: "Hyunjoong1*"
+        click_button 'Login'
+        click_on 'Admin'
+        click_link 'Create user'
+        expect(page).to have_content "Register"
       end
 
       it 'should be able to access user profile' do
@@ -100,20 +104,24 @@ RSpec.describe 'User registration/login/logout function', type: :system do
       end
 
       it 'should be able to access user edit screen' do
-        visit edit_admin_user_path(user.id)
-        fill_in 'name', with: 'update'
-        fill_in 'email', with: 'update@example.com'
-        fill_in 'password', with: 'password'
-        fill_in 'password_confirmation', with: 'password'
-        click_button 'Submit'
-        expect(page).to have_content 'update'
-        expect(page).to have_content 'update@example.com'
+        sample = FactoryBot.create(:user, name: "sample", email: "sample@example.com")
+        visit edit_admin_user_path(sample)
+        expect(page).to have_content 'sample'
+        expect(page).to have_content 'sample@example.com'
       end
 
       it 'Being able to delete users' do
-        visit admin_users_path
-        click_link "Delete", match: :first
-        expect(page).to have_content 'user deleted!'
+        user = User.create(name: "Chipo", email: "chipo2@gmail.com", password: "Hyunjoong1*", password_confirmation: "Hyunjoong1*", admin: true)
+        user = User.create(name: "Chipo2", email: "chipo@gmail.com", password: "Hyunjoon*", password_confirmation: "Hyunjoon*", admin: true)
+        visit new_session_path
+        fill_in "session_email", with: "chipo2@gmail.com"
+        fill_in "session_password", with: "Hyunjoong1*"
+        click_button 'Login'
+        click_on 'Admin'
+        within first('tbody tr') do
+          click_on 'Delete'
+         end
+        expect(page).not_to have_content 'chipo2@gmail.com'
       end
     end
   end

@@ -21,7 +21,7 @@ RSpec.describe "Tasks management function", type: :system do
         fill_in "Deadline", with: '002020-11-24 11:00 PM'
         select 'started'
         select 'low'
-        click_button 'Create Task'
+        click_button 'Submit'
         expect(page).to have_content 'title test'
         expect(page).to have_content 'content test'
       end
@@ -47,7 +47,7 @@ RSpec.describe "Tasks management function", type: :system do
         fill_in "Deadline", with: '002020-11-24 11:00 PM'
         select 'started'
         select 'low'
-        click_button 'Create Task'
+        click_button 'Submit'
         expect(page).to have_content 'title test4'
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe "Tasks management function", type: :system do
     context 'When you click the  Sort by creation button in the task list' do
       it 'list tasks sorted in descending order of creation date' do
         visit tasks_path
-        click_button "Sort by creation"
+        click_on "Sort by creation"
         assert Task.all.order('created_at desc')
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe "Tasks management function", type: :system do
     context 'When you click the Sort by duedate button in the task list' do
       it 'list tasks sorted in descending order of deadline' do
         visit tasks_path
-        click_button "Sort by duedate"
+        click_on "Sort by duedate"
         assert Task.all.order('duedate desc')
       end
     end
