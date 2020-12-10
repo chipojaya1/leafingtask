@@ -6,5 +6,5 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   enum priority: { low: 0, medium: 1, high: 2 }
   paginates_per 6
-  belongs_to :user
+  belongs_to :user, optional: true
 end

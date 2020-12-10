@@ -9,8 +9,6 @@
 <% end %>
 <br>
 
-<div class="row">
-  <div class="col-xs-4 col-xs-push-4 form">
     <h1>Sign up for Everleaf</h1>
     <p>Check out your Tasks Schedule</p>
     <%= form_with(model: @user, local: true) do |form|%>
@@ -22,15 +20,11 @@
       <br>
       <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation', class: "field" %></p>
       <br>
-      <div class="row">
-        <div class="col-xs-12 form-btn">
-          <%= form.submit "Create account" %>
-        </div>
-      </div>
+      <%= form.submit "Create account" %>
     <% end %>
     <hr>
     <h2>Already have an account？<%= link_to 'Login', new_session_path, class: 'btn btn-warning' %></h2>
-  </div>
+
 
   <div class="row">
     <div class="col-xs-12 space">
