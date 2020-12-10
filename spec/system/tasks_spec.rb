@@ -1,9 +1,14 @@
 require 'rails_helper'
 RSpec.describe "Tasks management function", type: :system do
   before do
-    FactoryBot.create(:task)
-    FactoryBot.create(:second_task)
-    FactoryBot.create(:third_task)
+    @user = FactoryBot.create(:user)
+    visit new_session_path
+    fill_in 'session_email', with:'user1@example.com'
+    fill_in 'session_password', with:'password'
+    click_on 'Login'
+    FactoryBot.create(:task, user: @user)
+    FactoryBot.create(:second_task, user: @user)
+    FactoryBot.create(:third_task, user: @user)
     visit tasks_path
   end
 
