@@ -5,7 +5,7 @@ RSpec.describe "Tasks management function", type: :system do
     visit new_session_path
     fill_in 'session_email', with:'user1@example.com'
     fill_in 'session_password', with:'password'
-    click_on 'Login'
+    click_button 'Login'
     FactoryBot.create(:task, user: @user)
     FactoryBot.create(:second_task, user: @user)
     FactoryBot.create(:third_task, user: @user)
@@ -21,7 +21,7 @@ RSpec.describe "Tasks management function", type: :system do
         fill_in "Deadline", with: '002020-11-24 11:00 PM'
         select 'started'
         select 'low'
-        click_on 'Create Task'
+        click_button 'Create Task'
         expect(page).to have_content 'title test'
         expect(page).to have_content 'content test'
       end
@@ -47,7 +47,7 @@ RSpec.describe "Tasks management function", type: :system do
         fill_in "Deadline", with: '002020-11-24 11:00 PM'
         select 'started'
         select 'low'
-        click_on 'Create Task'
+        click_button 'Create Task'
         expect(page).to have_content 'title test4'
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe "Tasks management function", type: :system do
     context 'When you click the  Sort by creation button in the task list' do
       it 'list tasks sorted in descending order of creation date' do
         visit tasks_path
-        click_on "Sort by creation"
+        click_button "Sort by creation"
         assert Task.all.order('created_at desc')
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe "Tasks management function", type: :system do
     context 'When you click the Sort by duedate button in the task list' do
       it 'list tasks sorted in descending order of deadline' do
         visit tasks_path
-        click_on "Sort by duedate"
+        click_button "Sort by duedate"
         assert Task.all.order('duedate desc')
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe "Tasks management function", type: :system do
       it "Narrows down tasks that include search keywords with title" do
         visit tasks_path
         fill_in "title keyword", with: "sample"
-        click_on "search"
+        click_button "search"
         expect(page).to have_content 'sample'
       end
     end
@@ -87,7 +87,7 @@ RSpec.describe "Tasks management function", type: :system do
       it "Narrows down tasks that exactly match with status" do
         visit tasks_path
         select "pending"
-        click_on "search"
+        click_button "search"
         expect(page).to have_content 'pending'
       end
     end
@@ -97,7 +97,7 @@ RSpec.describe "Tasks management function", type: :system do
         visit tasks_path
         fill_in "title keyword", with: "sample3"
         select "pending"
-        click_on "search"
+        click_button "search"
         expect(page).to have_content 'pending'
         expect(page).to have_content 'sample3'
       end
