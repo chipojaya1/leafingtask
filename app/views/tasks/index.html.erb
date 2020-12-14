@@ -23,6 +23,7 @@
           <th><%= link_to 'Sort by duedate', tasks_path(sort_duedate: "true") %></th>
           <th>Status</th>
           <th><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
+          <th>Labels</th>
           <th colspan="4"></th>
         </tr>
       </thead>
@@ -39,6 +40,11 @@
             <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
             <td><%= task.status %></td>
             <td><%= task.priority %></td>
+            <td>
+              <% task.labels.each do |label| %>
+                <%= label.name %>
+              <% end %>
+            </td>
             <td><%= link_to 'Show', task, class: "btn btn-warning" %></td>
             <td><%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %></td>
             <td><%= button_to 'Delete', task_path(task.id), :method=>:delete, :class=>:destroy, class:"btn btn-danger btn-lg" %></td>
