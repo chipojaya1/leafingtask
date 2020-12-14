@@ -40,8 +40,9 @@ RSpec.describe "Labels function", type: :system do
       it 'should create new label' do
         visit new_label_path
         fill_in 'name', with: 'new label'
-        click_on 'Submit'
+        click_on 'Create Label'
         expect(page).to have_content 'new label'
+        expect(page).to have_content 'Label was successfully created'
       end
       it 'can edit label' do
         visit labels_path
@@ -49,15 +50,16 @@ RSpec.describe "Labels function", type: :system do
           click_link 'Edit'
         end
         fill_in 'name', with: 'edit label'
-        click_on 'Submit'
+        click_on 'Update Label'
+        expect(page).to have_content 'Label was successfully updated.'
         expect(page).to have_content 'edit label'
       end
       it 'can delete label' do
-       visit labels_path
-       within first('tbody tr') do
-         click_on 'Delete'
+        visit labels_path
+        within first('tbody tr') do
+          click_on 'Delete'
         end
-      expect(page).to have_no_content 'Label'
+        expect(page).to have_content 'Label was successfully destroyed.'
       end
     end
   end
@@ -81,13 +83,15 @@ RSpec.describe "Labels function", type: :system do
         check 'second_label'
         check 'third_task'
         click_on 'Submit'
+        expect(page).to have_content 'Task created'
         expect(page).to have_content 'FirstLabel'
         expect(page).to have_content 'SecondLabel'
         expect(page).to have_content 'ThirdLabel'
       end
     end
+
     context 'when visiting task details screen' do
-      it 'should dispaly the label' do
+      it 'should display the label' do
         visit task_path(@task.id)
         expect(page).to have_content 'test1'
         expect(page).not_to have_content 'test2'
