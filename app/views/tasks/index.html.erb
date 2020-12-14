@@ -11,8 +11,10 @@
       </div>
     <% end %>
 
-    <p class=text-center><%= link_to 'New Task', new_task_path, class: "btn btn-success" %></p>
-
+    <p class=text-center>
+      <span><%= link_to 'New Task', new_task_path, class: "btn btn-warning btn-lg" %></span>
+      <span><%= link_to 'New Label', new_label_path, class: "btn btn-success btn-lg" %></span>
+    </p>
     <table class="text-md-left table-striped">
       <thead>
         <tr>

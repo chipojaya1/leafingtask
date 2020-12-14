@@ -19,19 +19,6 @@ RSpec.describe "Labels function", type: :system do
         fill_in 'session_password', with: 'password'
         click_on 'Log in'
       end
-      it 'should not have access to label screen' do
-        visit labels_path
-        expect(page).to have_content 'only for admins!'
-      end
-    end
-
-    context 'when admin visits label screen' do
-      before do
-        visit new_session_path
-        fill_in 'session_email', with: 'chipo2@gmail.com'
-        fill_in 'session_password', with: 'Hyunjoong1*'
-        click_on 'Log in'
-      end
       it 'should have access to label screen' do
         visit labels_path
         expect(current_path).to eq labels_path

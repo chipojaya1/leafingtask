@@ -2,7 +2,7 @@ class LabelsController < ApplicationController
   before_action :set_label, only: [:show, :edit, :update, :destroy]
 
   def index
-    if logged_in? && current_user.admin?
+    if logged_in?
       @labels = Label.all
     else
       redirect_to new_session_path

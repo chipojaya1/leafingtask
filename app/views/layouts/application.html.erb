@@ -26,9 +26,9 @@
             <ul class="nav navbar-nav">
               <li><%= link_to "My profile", user_path(current_user.id), class:"btn btn-warning btn-lg"  %></li>
               <li><%= link_to "All Tasks", tasks_path, class:"btn btn-success btn-lg"  %></li>
+              <li><%= link_to "Labels", labels_path, class:"btn btn-info btn-lg" %></li>
               <% if current_user.admin? %>
                 <li><%= link_to "Admin", admin_users_path, class:"btn btn-primary btn-lg" %></li>
-                <li><%= link_to "Labels", labels_path, class:"btn btn-default btn-lg" %></li>
               <% end %>
               <li><%= button_to "Logout", session_path(current_user.id), :method=>:delete, :class=>:destroy, class:"btn btn-danger btn-lg" %></li>
             </ul>
