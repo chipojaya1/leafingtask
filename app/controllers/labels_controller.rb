@@ -1,5 +1,16 @@
 class LabelsController < ApplicationController
-  before_action :set_label, only: [:edit, :update, :destroy]
+  before_action :set_label, only: [:show, :edit, :update, :destroy]
+
+  def index
+    if logged_in? && current_user.admin?
+      @labels = Label.all
+    else
+      redirect_to new_session_path
+    end
+  end
+
+  def show
+  end
 
   def new
     @label = Label.new
@@ -38,11 +49,11 @@ class LabelsController < ApplicationController
   end
 
   private
-    def set_label
-      @label = Label.find(params[:id])
-    end
+  def set_label
+    @label = Label.find(params[:id])
+  end
 
-    def label_params
-      params.require(:label).permit(:name)
-    end
+  def label_params
+    params.require(:label).permit(:name)
+  end
 end
