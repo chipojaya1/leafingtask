@@ -8,19 +8,19 @@ class TasksController < ApplicationController
   def index
     @search_params = task_search_params
     if params[:title].present? && params[:status].present? && params[:label_id].present?
-     @tasks = Task.where('title LIKE ? AND status LIKE ? AND label_id LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%", "%#{params[:label_id]}%" )
+     @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%").joins(:labels).where(labels: params[:label_id])
     elsif params[:title].present? && params[:status].present?
       @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%")
     elsif params[:title].present? && params[:label_id].present?
-       @tasks = Task.where('title LIKE ? AND label_id LIKE ?', "%#{params[:title]}%","%#{params[:label_id]}%" )
+      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%").joins(:labels).where(labels: params[:label_id])
     elsif params[:status].present? && params[:label_id].present?
-        @tasks = Task.where('status LIKE ? AND label_id LIKE ?',"%#{params[:status]}%", "%#{params[:label_id]}%" )
+      @tasks = Task.where(status: params[:status]).joins(:labels).where(labels: params[:label_id])
     elsif params[:title].present?
       @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
     elsif params[:status].present?
       @tasks = Task.where(status: params[:status])
     elsif params[:label_id].present?
-      @tasks = Task.where(label_id: params[:label_id])
+      @tasks = Task.joins(:labels).where(labels: params[:label_id])
     elsif params[:sort_creation]
       @tasks = current_user.tasks.order(created_at: :desc)
     elsif params[:sort_priority]
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.tasklabels.delete_all unless params[:task][:label_ids]
+    @task.tasklabels.delete_all unless params[:task][:label_id]
     if @task.update(task_params)
       flash[:success] = 'Task updated'
       redirect_to tasks_path
