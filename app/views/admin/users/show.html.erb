@@ -48,6 +48,11 @@
         <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
+        <td>
+          <% task.labels.each do |label| %>
+            <%= label.name %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
