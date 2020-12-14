@@ -1,18 +1,26 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :current_user
   before_action :authenticate_user
   before_action :logged_in?
+  before_action :set_labels, only: [:new, :create, :edit, :update]
   PER = 6
 
   def index
     @search_params = task_search_params
-    if params[:title].present? && params[:status].present?
-     @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
-    elsif params[:title].present? && params[:status].blank?
+    if params[:title].present? && params[:status].present? && params[:label_id].present?
+     @tasks = Task.where('title LIKE ? AND status LIKE ? AND label_id LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%", "%#{params[:label_id]}%" )
+    elsif params[:title].present? && params[:status].present?
+      @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%")
+    elsif params[:title].present? && params[:label_id].present?
+       @tasks = Task.where('title LIKE ? AND label_id LIKE ?', "%#{params[:title]}%","%#{params[:label_id]}%" )
+    elsif params[:status].present? && params[:label_id].present?
+        @tasks = Task.where('status LIKE ? AND label_id LIKE ?',"%#{params[:status]}%", "%#{params[:label_id]}%" )
+    elsif params[:title].present?
       @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
-    elsif params[:title].blank? && params[:status].present?
+    elsif params[:status].present?
       @tasks = Task.where(status: params[:status])
+    elsif params[:label_id].present?
+      @tasks = Task.where(label_id: params[:label_id])
     elsif params[:sort_creation]
       @tasks = current_user.tasks.order(created_at: :desc)
     elsif params[:sort_priority]
@@ -53,6 +61,7 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task.tasklabels.delete_all unless params[:task][:label_ids]
     if @task.update(task_params)
       flash[:success] = 'Task updated'
       redirect_to tasks_path
@@ -73,11 +82,15 @@ class TasksController < ApplicationController
     @task = current_user.tasks.find(params[:id])
   end
 
+  def set_labels
+    @labels = Label.all
+  end
+
   def task_search_params
-    params.fetch(:search, {}).permit(:title, :status )
+    params.fetch(:search, {}).permit(:title, :status, :label_id )
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :duedate, :priority, :status, :id)
+    params.require(:task).permit(:title, :content, :duedate, :priority, :status, :id, label_ids:[])
   end
 end
