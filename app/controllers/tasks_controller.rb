@@ -7,20 +7,20 @@ class TasksController < ApplicationController
 
   def index
     @search_params = task_search_params
-    if params[:title].present? && params[:status].present? && params[:label_id].present?
-     @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%").joins(:labels).where(labels: params[:label_id])
+    if params[:title].present? && params[:status].present? && params[:labels].present?
+     @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%").joins(:labels).where(labels: params[:labels])
     elsif params[:title].present? && params[:status].present?
       @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%")
-    elsif params[:title].present? && params[:label_id].present?
-      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%").joins(:labels).where(labels: params[:label_id])
-    elsif params[:status].present? && params[:label_id].present?
-      @tasks = Task.where(status: params[:status]).joins(:labels).where(labels: params[:label_id])
+    elsif params[:title].present? && params[:labels].present?
+      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%").joins(:labels).where(labels: params[:labels])
+    elsif params[:status].present? && params[:labels].present?
+      @tasks = Task.where(status: params[:status]).joins(:labels).where(labels: params[:labels])
     elsif params[:title].present?
       @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
     elsif params[:status].present?
       @tasks = Task.where(status: params[:status])
-    elsif params[:label_id].present?
-      @tasks = Task.joins(:labels).where(labels: params[:label_id])
+    elsif params[:labels].present?
+      @tasks = Task.joins(:labels).where(labels: params[:labels])
     elsif params[:sort_creation]
       @tasks = current_user.tasks.order(created_at: :desc)
     elsif params[:sort_priority]
@@ -61,7 +61,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.tasklabels.delete_all unless params[:task][:label_id]
     if @task.update(task_params)
       flash[:success] = 'Task updated'
       redirect_to tasks_path
@@ -91,6 +90,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :duedate, :priority, :status, :id, label_ids:[])
+    params.require(:task).permit(:title, :content, :duedate, :priority, :status, :id, { label_ids: [] })
   end
 end

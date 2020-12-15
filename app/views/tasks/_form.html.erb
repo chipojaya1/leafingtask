@@ -3,7 +3,7 @@
 <% if @task.errors.any? %>
   <div class="bg-danger text-white">
     <ul>
-      <% @user.errors.full_messages.each do |message| %>
+      <% @task.errors.full_messages.each do |message| %>
         <li>・<%= message %></li>
       <% end %>
     </ul>
