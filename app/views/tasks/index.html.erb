@@ -7,7 +7,7 @@
         <%= f.search_field :title, placeholder: 'title keyword', value: @search_params[:title] %>
         <%= f.select :status, ["pending", "started", "completed" ], placeholder: 'status', selected: @search_params[:status], include_blank: "" %>
         <% Label.all.each do |label| %>
-          <%= label.name %>:<%= f.check_box :label_id, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+          <%= label.name %>:<%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
         <% end %>
         <%= f.submit "search", class: "btn btn-primary"  %>
       </div>
