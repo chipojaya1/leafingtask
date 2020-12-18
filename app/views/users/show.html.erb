@@ -1,20 +1,30 @@
-<h1 class = "center"><%= @user.name %>'s Profile</h1>
 <div class ="col-md-3">
-  <table class="user_show_table  clearfix">
-    <thead>
-      <tr>
-        <th>User Name</th>
-        <td><%= @user.name%></td>
-      </tr>
-      <tr>
-        <th>Email Address</th>
-        <td><%= @user.email %></td>
-      </tr>
-      <tr>
-      <td><%= link_to 'New Task', new_task_path, class:"btn btn-info btn-lg" %></td>  
-      </tr>
-    </thead>
-  </table>
+<div class="card p-5" style="width: 50rem;">
+  <div class="col-sm-4 bg-c-lite-green user-profile">
+                            <div class="card-block text-center text-white">
+                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
+                                <h6 class="f-w-600">Hembo Tingor</h6>
+                                <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                            </div>
+                        </div>
+<h1 class = "center"><%= @user.name %>'s Profile</h1>
+    <table class="user_show_table  clearfix">
+      <thead>
+        <tr class="mb-2">
+          <th>User Name</th>
+          <td><%= @user.name%></td>
+        </tr>
+        <tr>
+          <th>Email Address</th>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+        <td><%= link_to 'New Task', new_task_path, class:"btn btn-info btn-lg" %></td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
 </div>
 
 <hr>

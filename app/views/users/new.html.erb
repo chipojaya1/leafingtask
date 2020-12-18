@@ -9,21 +9,40 @@
 <% end %>
 <br>
 
-    <h1>Sign up for Everleaf</h1>
-    <p>Check out your Tasks Schedule</p>
-    <%= form_with(model: @user, local: true) do |form|%>
-      <p><%= form.text_field :name, placeholder: 'name', class: "field" %></p>
-      <br>
-      <p><%= form.email_field :email, placeholder: 'email', class: "field" %></p>
-      <br>
-      <p><%= form.password_field :password, placeholder: 'password', class: "field" %></p>
-      <br>
-      <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation', class: "field" %></p>
-      <br>
-      <%= form.submit "Create account" %>
-    <% end %>
-    <hr>
-    <h2>Already have an account？<%= link_to 'Login', new_session_path, class: 'btn btn-warning' %></h2>
+
+<div class="">
+  <div class="row">
+    <div class="col-sm-2">
+
+    </div>
+    <div class="card " style="width: 50rem;">
+      <div class="card-body text-center">
+        <h1 class="text-center">Sign up for Everleaf</h1>
+        <h3 class="m-3">Check out your Tasks Schedule</h3>
+        <br>
+        <%= form_with(model: @user, local: true) do |form|%>
+          <p><%= form.text_field :name, placeholder: 'name', class: "field" %></p>
+          <br>
+          <p><%= form.email_field :email, placeholder: 'email', class: "field" %></p>
+          <br>
+          <p><%= form.password_field :password, placeholder: 'password', class: "field" %></p>
+          <br>
+          <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation', class: "field" %></p>
+          <br>
+          <%= form.submit "Create account" %>
+        <% end %>
+        <br>
+        <hr>
+        <br>
+        <h2>Already have an account？<%= link_to 'Login', new_session_path, class: 'btn btn-warning' %></h2>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>
 
 
   <div class="row">

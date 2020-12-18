@@ -137,5 +137,17 @@ RSpec.describe "Labels function", type: :system do
         expect(page).to have_no_content 'ThirdLabel'
       end
     end
+
+    describe 'search function' do
+      context 'When a status search is performed with the scope method' do
+        it "Narrows down tasks that exactly match with label" do
+          visit new_label_path
+          fill_in 'name', with: 'searchinglabel'
+          click_on 'Create Label'
+          visit tasks_path
+          expect(page).to have_content 'searchinglabel'
+        end
+      end
+    end
   end
 end

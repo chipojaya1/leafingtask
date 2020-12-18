@@ -1,5 +1,6 @@
 <div class="container">
-  <%= link_to root_path %><h1>Tasks</h1>
+  <div class="card">
+  <%= link_to root_path do %><h1>Tasks</h1><% end %>
   <p id="notice"><%= notice %></p>
   <div class="container-fluid">
     <%= form_with(url: tasks_path, method: :get, local: true, class: "form-inline") do |f| %>
@@ -13,21 +14,21 @@
       </div>
     <% end %>
 
-    <p class=text-center>
+    <p class="mt-4">
       <span><%= link_to 'New Task', new_task_path, class: "btn btn-warning btn-lg" %></span>
       <span><%= link_to 'New Label', new_label_path, class: "btn btn-success btn-lg" %></span>
     </p>
-    <table class="text-md-left table-striped">
+    <table class="table table-striped">
       <thead>
         <tr>
-          <th>No.</th>
-          <th>Name</th>
-          <th>Details</th>
-          <th><%= link_to 'Sort by creation', tasks_path(sort_creation: "true") %></th>
-          <th><%= link_to 'Sort by duedate', tasks_path(sort_duedate: "true") %></th>
-          <th>Status</th>
-          <th><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
-          <th>Labels</th>
+          <th scope="col">No.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Details</th>
+          <th scope="col"><%= link_to 'Sort by creation', tasks_path(sort_creation: "true") %></th>
+          <th scope="col"><%= link_to 'Sort by duedate', tasks_path(sort_duedate: "true") %></th>
+          <th scope="col">Status</th>
+          <th scope="col"><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
+          <th scope="col">Labels</th>
           <th colspan="4"></th>
         </tr>
       </thead>
@@ -57,5 +58,8 @@
         <br>
       </tbody>
     </table>
+    <hr>
+    <%= paginate @tasks, class:"mt-5" %>
   </div>
+</div>
 </div>

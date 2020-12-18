@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_12_12_141313) do
   enable_extension "plpgsql"
 
   create_table "labels", force: :cascade do |t|
-    t.string "name"
+    t.string "name", default: "FirstLabel"
     t.bigint "task_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false

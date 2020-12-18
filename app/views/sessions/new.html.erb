@@ -1,5 +1,8 @@
 <div class="row">
-  <div class="col-xs-4 col-xs-push-4 form">
+  <div class="col-sm-4">
+
+  </div>
+  <div class="mt-5">
 
     <h1>Everleaf Login</h1>
     <%= form_with(scope: :session, url: sessions_path, local: true) do |form|%>
@@ -15,16 +18,5 @@
     <% end %>
     <hr>
     <h2>New to Everleaf？<%= link_to 'Create account', new_user_path, class: 'btn btn-warning' %></h2>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12 space">
-  </div>
-  <div class="col-xs-12 space">
-  </div>
-  <div class="col-xs-12 space">
-  </div>
-  <div class="col-xs-12 space">
   </div>
 </div>

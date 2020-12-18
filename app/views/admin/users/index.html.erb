@@ -1,5 +1,6 @@
 <h1 class = "center">List of Users</h1>
 <br>
+<div class="adm">
 
 <%= link_to 'Create user', new_admin_user_path, class: "btn btn-info" %>
 <hr>
@@ -30,3 +31,6 @@
     <% end %>
   </tbody>
 </table>
+<hr>
+<%= paginate @users, class:"mt-5" %>
+</div>

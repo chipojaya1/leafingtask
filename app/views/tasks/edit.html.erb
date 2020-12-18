@@ -1,6 +1,37 @@
-<h1>Editing Task</h1>
+<div class="card p-5" style= "width: 110rem" id="textfield">
+  <h1>Editing Task</h1>
+  <div class="mb-5">
+    <%= form_with(model: @task, local: true) do |form| %>
+    <% if @task.errors.any? %>
+      <div class="bg-danger text-white">
+        <ul>
+          <% @task.errors.full_messages.each do |message| %>
+            <li>・<%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<%= render 'form', task: @task %>
+      <div class="field">
+        <ul>
+          <li><%=form.label :title %></li>
+          <li><%= form.text_field :title, placeholder: 'Task Name' %></li>
+          <li><%=form.label :content %></li>
+          <li><%= form.text_field :content, placeholder: 'Task Details' %></li>
+          <li><%=form.label :duedate %></li>
+          <li><%= form.date_field :duedate, placeholder: 'Deadline' %></li>
+          <li><%=form.label :status %></li>
+          <li><%= form.select :status, ['pending','started','completed'], placeholder: 'Status' %></li>
+          <li><%=form.label :priority %></li>
+          <li><%= form.select :priority,['low','medium','high'], placeholder: 'Priority' %></li>
+          <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
+          <%= form.submit "Submit", class:"btn btn-primary" %>
+        </ul>
 
-<%= link_to 'Show', @task, class:"btn btn-info" %> |
-<%= link_to 'Back', tasks_path, class:"btn btn-warning" %>
+
+      </div>
+    <% end %>
+  </div>
+  <span><%= link_to 'Show', @task, class:"btn btn-info" %>
+  <%= link_to 'Back', tasks_path, class:"btn btn-warning" %></span>
+</div>

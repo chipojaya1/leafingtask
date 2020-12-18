@@ -21,32 +21,39 @@
             <span class="icon-bar"></span>
           </button>
         </div>
-        <div id="gnavi" class="collapse navbar-collapse">
-          <% if logged_in? %>
-            <ul class="nav navbar-nav">
-              <li><%= link_to "My profile", user_path(current_user.id), class:"btn btn-warning btn-lg"  %></li>
-              <li><%= link_to "All Tasks", tasks_path, class:"btn btn-success btn-lg"  %></li>
-              <li><%= link_to "Labels", labels_path, class:"btn btn-info btn-lg" %></li>
-              <% if current_user.admin? %>
-                <li><%= link_to "Admin", admin_users_path, class:"btn btn-primary btn-lg" %></li>
-              <% end %>
-              <li><%= button_to "Logout", session_path(current_user.id), :method=>:delete, :class=>:destroy, class:"btn btn-danger btn-lg" %></li>
-            </ul>
-          <% else %>
-            <ul>
-              <li><%= link_to "Login", new_session_path, class:"btn btn-warning btn-lg" %></li>
-              <li><%= link_to "Join", new_user_path, class:"btn btn-primary btn-lg" %></li>
-            </ul>
-          <% end %>
-        </div>
+      </div>
+    </nav>
+    <% if logged_in? %>
+      <div class="sidenav">
+        <li><%= link_to "My profile", user_path(current_user.id) %></li>
+        <li><%= link_to "All Tasks", tasks_path %></li>
+        <li><%= link_to "Labels", labels_path %></li>
+        <% if current_user.admin? %>
+        <li><%= link_to "Admin", admin_users_path %></li>
+        <% end %>
+        <li><%= button_to "Logout", session_path(current_user.id), :method=>:delete, :class=>:destroy, class: "but" %></li>
+        <ul id="logout_sidebar_button" class="nav nav-sidebar">
+          <li><%= image_tag("logo.png", class: "logo") %></li>
+        </ul>
+      </div>
+    <% end %>
+
+
 
         <% flash.each do |key, value| %>
         <div class="alert alert-danger" role="alert">
           <%= content_tag(:div, value, class: "#{key}") %>
         </div>
         <% end %>
+
+
+  <div class="main">
+    <%= yield %>
+
+  </div>
+  <footer class="page-footer font-small special-color-white pt-4 fixed-bottom">
+    <div class="footer-copyright text-center py-3"><h2>© 2020 Chipo Jaya</h2>
     </div>
-  </nav>
-  <%= yield %>
+  </footer>
   </body>
 </html>
